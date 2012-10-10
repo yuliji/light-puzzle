@@ -1,3 +1,39 @@
+function upId(line, row){
+    var id = null;
+    if (line != 1){
+	line = line -1;
+	id = line.toString()+row.toString();
+    }
+    return id;
+}
+
+function downId(line, row){
+    var id = null;
+    if (line != 3){
+	line = line + 1;
+	id = line.toString()+row.toString();
+    }
+    return id;
+}
+
+function rightId(line, row){
+    var id = null;
+    if (row != 3){
+	row = row + 1;
+	id = line.toString()+row.toString();
+    }
+    return id;
+}
+
+function leftId(line, row){
+    var id = null;
+    if (row != 1){
+	row = row -1;
+	id = line.toString()+row.toString();
+    }
+    return id;
+}
+
 $(document).ready(function(){
     $("td").addClass("black");
     var l, r;
@@ -6,11 +42,24 @@ $(document).ready(function(){
 	    var id = "#"+l.toString()+r.toString();
 	    var random = Math.random();
 	    if(random > 0.5){
-		$(id).addClass("black");
-	    }else{
-		$(id).addClass("white");
+		$(id).toggleClass("black");
 	    }
 	}
     }
+    
+    $("td").click(function(){
+	var id = event.target.id;
+	var line = parseInt(id[0]);
+	var row = parseInt(id[1]);
+	$(this).toggleClass("black");
+	var up = upId(line, row);
+	$("#"+up).toggleClass("black");
+	var down = downId(line, row);
+	$("#"+down).toggleClass("black");
+	var left = leftId(line, row);
+	$("#"+left).toggleClass("black");
+	var right = rightId(line, row);
+	$("#"+right).toggleClass("black");
+    });
  
 });
