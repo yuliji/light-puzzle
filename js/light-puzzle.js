@@ -9,7 +9,7 @@ function upId(line, row){
 
 function downId(line, row){
     var id = null;
-    if (line != 3){
+    if (line != 4){
 	line = line + 1;
 	id = line.toString()+row.toString();
     }
@@ -18,7 +18,7 @@ function downId(line, row){
 
 function rightId(line, row){
     var id = null;
-    if (row != 3){
+    if (row != 4){
 	row = row + 1;
 	id = line.toString()+row.toString();
     }
@@ -37,8 +37,8 @@ function leftId(line, row){
 $(document).ready(function(){
     $("td").addClass("black");
     var l, r;
-    for(l = 1; l < 4; l++){
-	for(r = 1; r < 4; r++){
+    for(l = 1; l <= 4; l++){
+	for(r = 1; r <= 4; r++){
 	    var id = "#"+l.toString()+r.toString();
 	    var random = Math.random();
 	    if(random > 0.5){
