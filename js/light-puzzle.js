@@ -34,7 +34,7 @@ function leftId(line, row){
     return id;
 }
 
-$(document).ready(function(){
+function refresh(){
     $("td").addClass("black");
     var l, r;
     for(l = 1; l <= 4; l++){
@@ -46,7 +46,11 @@ $(document).ready(function(){
 	    }
 	}
     }
-    
+}
+
+$(document).ready(function(){
+    refresh();
+    $("#restart").click(refresh);    
     $("td").click(function(){
 	var id = event.target.id;
 	var line = parseInt(id[0]);
