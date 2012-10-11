@@ -43,7 +43,11 @@ function refresh(){
 	    var random = Math.random();
 	    if(random > 0.5){
 		$(id).toggleClass("black");
+		$("#x"+l.toString()+r.toString()).html("0");
+	    }else{
+		$("#x"+l.toString()+r.toString()).html("1");
 	    }
+
 	}
     }
 }
@@ -51,7 +55,7 @@ function refresh(){
 $(document).ready(function(){
     refresh();
     $("#restart").click(refresh);    
-    $("td").click(function(){
+    $("td").click(function(event){
 	var id = event.target.id;
 	var line = parseInt(id[0]);
 	var row = parseInt(id[1]);
