@@ -10,3 +10,9 @@ td.black{
 td.white{
     background-color: white;
 }
+
+div.matrix{
+    margin-top: 50px;
+    margin-right: 50px;
+    float: left;
+}

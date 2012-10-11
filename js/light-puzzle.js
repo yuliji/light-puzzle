@@ -50,6 +50,85 @@ function refresh(){
 
 	}
     }
+    solveMatrix();
+}
+
+function findLineWithOneAtCol(matrix, col){
+    for(var i = col; i < matrix.length; i++){
+	if(matrix[i][col] == 1){
+	    return i;
+	}
+    }
+    return -1;
+}
+
+function switchLine(matrix, la, lb){
+    var line = matrix[la];
+    matrix[la] = matrix[lb];
+    matrix[lb] = line;
+}
+
+function addLine(matrix, la, lb){
+    for(var i = 0; i < 17; i ++){
+	matrix[la][i] = (matrix[la][i] + matrix[lb][i])%2;
+    }
+}
+
+function printMatrix(matrix){
+    var html = '';
+    for(var line = 0; line < 16; line ++){
+	for(var col = 0; col < 17; col ++){
+	    html = html + matrix[line][col].toString()+" ";
+	}
+	html = html + "<br/>\n";
+    }
+    html = "\n"+html;
+    $("#solved-matrix").html(html);
+}
+
+function solveMatrix(){
+    var  matrix =[[1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                  [1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		  [0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		  [0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+		  [1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+		  [0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+		  [0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0],
+		  [0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0],
+		  [0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0],
+		  [0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0],
+		  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0], 
+		  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1], 
+		  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0], 
+		  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0], 
+		  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1], 
+		  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1]]; 
+
+    var line, column;
+    var i = 0;
+    for(line = 1; line <= 4; line++){
+	for(column = 1; column <= 4; column++){
+	    var xy = line.toString()+column.toString();
+	    var lastCol = $("#x"+xy).html();
+	    matrix[i++][16] = parseInt(lastCol);
+	}
+    }
+
+    for(line = 0; line < 16; line++){
+	var n_line = findLineWithOneAtCol(matrix, line);
+	if(n_line > line){
+	    switchLine(matrix, line, n_line);
+	}
+	for(var l = line + 1; l < 16; l++){
+	    if(matrix[l][line] == 1){
+		addLine(matrix, l, line);
+	    }
+	}
+//	printMatrix(matrix);
+    }
+    printMatrix(matrix);
+
+
 }
 
 $(document).ready(function(){
@@ -69,5 +148,5 @@ $(document).ready(function(){
 	var right = rightId(line, row);
 	$("#"+right).toggleClass("black");
     });
- 
+
 });
